@@ -1,6 +1,6 @@
 import ballerina/log;
 import ballerinax/mysql;
-import ballerina/graphql;
+import ballerina/http;
 import ballerina/sql;
 
 configurable string host = ?;
@@ -30,7 +30,7 @@ type Cart record {
     string createdAt;
 };
 
-service /graphql on new graphql:Listener(9090) {
+service / on new http:Listener(9090) {
     private mysql:Client mySqlClient;
     function init() returns error? {
         self.mySqlClient = check new (host, username, password, db, port, connectionPool = {maxOpenConnections: 3});
